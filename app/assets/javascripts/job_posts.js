@@ -8,6 +8,14 @@ const bindClickEvents = () => {
     history.pushState(null, null, "job_posts")
     getJobPosts()
   })
+
+  $(document).on('click', '.post_link', function(event) {
+    event.preventDefault()
+    let id = $(this).data("id")
+    history.pushState(null, null, `/job_posts/${id}`)
+    getJobPost(id)
+  })
+
 }
 
 const getJobPosts = () => {
@@ -19,6 +27,15 @@ const getJobPosts = () => {
       $('.container').append(postList)
     });
   })
+}
+
+function getJobPost(postId){
+  $.get("/job_posts/" + postId, function(post){
+    let newPost = new JobPost(post)
+    let postHtml = newPost.postFormat() 
+    $('.container').html('')
+    $('.container').append(postHtml)
+  });
 }
 
 function JobPost(jobPost){
@@ -49,7 +66,7 @@ JobPost.prototype.postFormat = function() {
 
 JobPost.prototype.postIndex = function() {
   let postList = `
-    <h4>Post ${this.id}:</h4>
+    <h4><a class="post_link" data-id="${this.id}" href="#">Post ${this.id}:</a></h4>
     <b>${this.postType}</b><br>
     <b>${this.jobType}</b><br>
     <b>${this.location ? `Location: ${this.location}` : ''}</b><br>
