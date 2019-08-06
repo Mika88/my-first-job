@@ -3,10 +3,16 @@ $(() => {
 });
 
 const bindClickEvents = () => {
-  $('#posts_link').on('click', event => {
+  $('#workers_link').on('click', event => {
     event.preventDefault()
-    history.pushState(null, null, "job_posts")
-    getJobPosts()
+    history.pushState(null, null, "employee_posts")
+    getEmployeesPosts(posts)
+  })
+  
+  $('#jobs_link').on('click', event => {
+    event.preventDefault()
+    history.pushState(null, null, "employer_posts")
+    getEmployersPosts(posts)
   })
 
   $(document).on('click', '.post_link', function(event) {
@@ -15,18 +21,33 @@ const bindClickEvents = () => {
     history.pushState(null, null, `/job_posts/${id}`)
     getJobPost(id)
   })
-
 }
 
-const getJobPosts = () => {
+const posts = posts => {
   $('.container').html('')
-  $.get("/job_posts", function(jobPosts){
-    jobPosts.forEach(post => {
-      let newPost = new JobPost(post)
-      let postList = newPost.postIndex()
-      $('.container').append(postList)
-    });
+  posts.forEach(post => {
+    let newPost = new JobPost(post)
+    let postList = newPost.postIndex()
+    $('.container').append(postList)
   })
+}
+
+const getEmployersPosts = callback => {
+  $.get("/job_posts", function(jobPosts){
+    let jobs = jobPosts.filter(function(post){
+      return (post.post_type === "looking to hire")
+    })
+    callback(jobs)
+  }) 
+}
+
+const getEmployeesPosts = callback => {
+  $.get("/job_posts", function(jobPosts){
+    let workers = jobPosts.filter(function(post){
+      return (post.post_type === "looking for a job")
+    })
+    callback(workers)
+  }) 
 }
 
 function getJobPost(postId){
