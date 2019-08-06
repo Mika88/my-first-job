@@ -9,3 +9,12 @@ const bindClickEvents = () => {
     getJobPosts()
   })
 }
+
+const getJobPosts = () => {
+  $('#container').html('')
+  $.get("/job_posts", function(jobPosts){
+    jobPosts.forEach(post => {
+      console.log(post)
+    });
+  })
+}
