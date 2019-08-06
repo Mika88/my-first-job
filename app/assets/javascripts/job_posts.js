@@ -11,10 +11,12 @@ const bindClickEvents = () => {
 }
 
 const getJobPosts = () => {
-  $('#container').html('')
+  $('.container').html('')
   $.get("/job_posts", function(jobPosts){
     jobPosts.forEach(post => {
-      console.log(post)
+      let newPost = new JobPost(post)
+      let postList = newPost.postIndex()
+      $('.container').append(postList)
     });
   })
 }
@@ -37,7 +39,7 @@ JobPost.prototype.postFormat = function() {
     <h4>Description</h4>
     <p>${this.description}</p>
     <h4>${this.location ? `Location: ${this.location}` : `` }</h4>
-    <h4>${this.salary ? `Charge: $${this.salary} per hour` : `` }</h4>
+    <h4>${this.salary ? `Charge: $${this.salary} per hour` : '' }</h4>
     <h4>contact info</h4>
     <h4>Name: ${this.creatorName}</h4>
     <h4>Email: ${this.creatorEmail}</h4>
@@ -47,9 +49,10 @@ JobPost.prototype.postFormat = function() {
 
 JobPost.prototype.postIndex = function() {
   let postList = `
-    <b>${this.postType}</b>
-    <b>${this.jobType}</b>
-    <b>${this.location} </b>
+    <h4>Post ${this.id}:</h4>
+    <b>${this.postType}</b><br>
+    <b>${this.jobType}</b><br>
+    <b>${this.location ? `Location: ${this.location}` : ''}</b><br>
   `
-  return this.postList
+  return postList
 }
