@@ -14,6 +14,12 @@ const bindClickEvents = () => {
     history.pushState(null, null, "employer_posts")
     getEmployersPosts(posts)
   })
+  
+  $('#new_post_link').on('click', event => {
+    event.preventDefault()
+    history.pushState(null, null, "posts/new")
+    newPostForm()
+  })
 
   $(document).on('click', '.post_link', function(event) {
     event.preventDefault()
@@ -49,13 +55,40 @@ const getEmployeesPosts = callback => {
   }) 
 }
 
-function getJobPost(postId){
+const getJobPost = postId => {
   $.get("/job_posts/" + postId, function(post){
     let newPost = new JobPost(post)
     let postHtml = newPost.postFormat() 
     $('.container').html('')
     $('.container').append(postHtml)
   });
+}
+
+const newPostForm = () => {
+  let formFormat = `
+    <h4>New Job Post</h4>
+    <form method="post" action="/job_posts" id="newPost">
+      <b>I am... </b><br>
+      <input type="radio" name="postType" value="looking for a job">Looking for a job<br>
+      <input type="radio" name="postType" value="looking for a job">Looking to hire<br></br>
+      <b>Select a job type:</b><br>
+      <input type="checkbox" name="jobType" value="babysitting">Babysitting<br>
+      <input type="checkbox" name="jobType" value="dogwalking">Dogwalking<br>
+      <input type="checkbox" name="jobType" value="yard work">Yard Work<br>
+      <input type="checkbox" name="jobType" value="pet care">Pet Care (feeding, checking in)<br>
+      <input type="checkbox" name="jobType" value="tutoring">Tutoring<br>
+      <input type="checkbox" name="jobType" value="other">other<br></br>
+      <b>About Job/Me</b><br>
+      <textarea type="text" name="description" form="newPost" rows="10" cols="30"></textarea><br></br>
+      <b>Job Location (neighborhood, city): <b>
+      <input type="text" name="location"><br>
+      <b>Hourly salary: <b>
+      $<input type="number" name="salary"><br>
+      <input type="submit" value="Submit">
+    </form>
+  `
+  $('.container').html('')
+  $('.container').append(formFormat)
 }
 
 function JobPost(jobPost){
@@ -97,3 +130,4 @@ JobPost.prototype.postIndex = function() {
   `
   return postList
 }
+
