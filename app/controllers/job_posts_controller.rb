@@ -11,6 +11,8 @@ class JobPostsController < ApplicationController
 
     def create
         @job_post = JobPost.new(job_post_params)
+        @job_post.job_type = JSON.parse( @job_post.job_type.tr("'", '"') ).join(", ")
+
         if @job_post.save
             render json: @job_post
         else

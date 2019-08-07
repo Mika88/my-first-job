@@ -46,6 +46,11 @@ const getEmployersPosts = callback => {
   }) 
 }
 
+const handleSubmit = () => {
+  getEmployersPosts(posts)
+  getEmployeesPosts(posts)
+}
+
 const getEmployeesPosts = callback => {
   $.get("/job_posts", function(jobPosts){
     let workers = jobPosts.filter(function(post){
@@ -67,11 +72,11 @@ const getJobPost = postId => {
 const newPostForm = () => {
   let formFormat = `
     <h4>New Job Post</h4>
-    <form method="post" action="/job_posts" id="newPost">
+    <form onsubmit="handleSubmit()" method="post" action="/job_posts" id="newPost">
 
       <b>I am...* </b><br>
       <input type="radio" name="post_type" value="looking for a job">Looking for a job<br>
-      <input type="radio" name="post_type" value="looking for a job">Looking to hire<br></br>
+      <input type="radio" name="post_type" value="looking to hire">Looking to hire<br></br>
 
       <b>Select a job type*:</b><br>
       <input type="checkbox" name="job_type[]" value="babysitting">Babysitting<br>
