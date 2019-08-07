@@ -10,7 +10,6 @@ class JobPostsController < ApplicationController
     end
 
     def create
-        raise params.inspect
         @job_post = JobPost.new(job_post_params)
         if @job_post.save
             render json: @job_post
@@ -22,6 +21,6 @@ class JobPostsController < ApplicationController
     private
 
     def job_post_params
-        params.permit(:post_type, :job_type, :description, :location, :salary, :creator_email, :creator_name)
+        params.permit(:post_type, :description, :location, :salary, :creator_email, :creator_name, :job_type => [])
     end
 end

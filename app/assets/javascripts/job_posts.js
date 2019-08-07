@@ -70,19 +70,19 @@ const newPostForm = () => {
     <form method="post" action="/job_posts" id="newPost">
 
       <b>I am...* </b><br>
-      <input type="radio" name="postType" value="looking for a job">Looking for a job<br>
-      <input type="radio" name="postType" value="looking for a job">Looking to hire<br></br>
+      <input type="radio" name="post_type" value="looking for a job">Looking for a job<br>
+      <input type="radio" name="post_type" value="looking for a job">Looking to hire<br></br>
 
       <b>Select a job type*:</b><br>
-      <input type="checkbox" name="jobType[]" value="babysitting">Babysitting<br>
-      <input type="checkbox" name="jobType[]" value="dogwalking">Dogwalking<br>
-      <input type="checkbox" name="jobType[]" value="yard work">Yard Work<br>
-      <input type="checkbox" name="jobType[]" value="pet care">Pet Care (feeding, checking in)<br>
-      <input type="checkbox" name="jobType[]" value="tutoring">Tutoring<br>
-      <input type="checkbox" name="jobType[]" value="other">other<br></br>
+      <input type="checkbox" name="job_type[]" value="babysitting">Babysitting<br>
+      <input type="checkbox" name="job_type[]" value="dogwalking">Dogwalking<br>
+      <input type="checkbox" name="job_type[]" value="yard work">Yard Work<br>
+      <input type="checkbox" name="job_type[]" value="pet care">Pet Care (feeding, checking in)<br>
+      <input type="checkbox" name="job_type[]" value="tutoring">Tutoring<br>
+      <input type="checkbox" name="job_type[]" value="other">other<br></br>
 
-      <b>About Job/Me</b><br>
-      <textarea type="text" name="description" form="newPost" rows="10" cols="30"></textarea><br></br>
+      <b>About Job/Me*</b><br>
+      <textarea type="text" name="description" form="newPost" rows="10" cols="30" required></textarea><br></br>
 
       <b>Job Location (neighborhood, city): <b>
       <input type="text" name="location"><br>
@@ -91,8 +91,8 @@ const newPostForm = () => {
       $<input type="number" name="salary"><br>
 
       <b>Contact Info*:</b><br>
-      Name: <input type="text" name="name" required><br>
-      Email: <input type="email" name="email" required></br>
+      Name: <input type="text" name="creator_name" required><br>
+      Email: <input type="email" name="creator_email" required></br>
       <b>**required fields</b>
       <input type="submit" value="Submit">
     </form>
@@ -103,7 +103,7 @@ const newPostForm = () => {
 
 function JobPost(jobPost){
   this.id = jobPost.id
-  this.postType = jobPost.post_type
+  this.post_type = jobPost.post_type
   this.jobType = jobPost.job_type
   this.description = jobPost.description
   this.location = jobPost.location
@@ -133,7 +133,7 @@ JobPost.prototype.postFormat = function() {
 JobPost.prototype.postIndex = function() {
   let postList = `
     <h4><a class="post_link" data-id="${this.id}" href="#">Post ${this.id}:</a></h4>
-    <b>${this.postType}</b>
+    <b>${this.post_type}</b>
     <h5><b>Job Type</b> ${this.jobType}</h5>
     ${this.location ? `<h5><b>Location</b> ${this.location}</h5>` : ''}
     ${this.salary ? `<h5><b>Hourly Salary</b> $${this.salary}</h5>` : ''}

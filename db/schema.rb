@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_05_170212) do
+ActiveRecord::Schema.define(version: 2019_08_07_183517) do
 
   create_table "job_posts", force: :cascade do |t|
     t.string "post_type"
-    t.string "job_type"
+    t.string "job_type", default: "{}"
     t.string "description"
     t.string "location"
     t.integer "salary"
