@@ -9,13 +9,19 @@ class JobPostsController < ApplicationController
         render json: @job_post
     end
 
-    def new
-        @job_post = JobPost.new
+    def create
+        raise params.inspect
+        @job_post = JobPost.new(job_post_params)
+        if @job_post.save
+            render json: @job_post
+        else
+            render json: { errors: { message: "Post failed to save"}}
+        end
     end
 
     private
 
     def job_post_params
-        params.require(:job_post).permit(:post_type, :job_type, :description, :location, :salary, :creator_email, :creator_name)
+        params.permit(:post_type, :job_type, :description, :location, :salary, :creator_email, :creator_name)
     end
 end
