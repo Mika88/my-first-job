@@ -116,6 +116,25 @@ const newPostForm = () => {
   $('.container').append(formFormat)
 }
 
+const newReviewForm = () => {
+  let reviewForm = `
+    <h4>Add a Review</h4>
+    <form>
+      <b>Title*: </b>
+      <input type="text" name="title" required></br>
+      <textarea type="text" name="content" rows="10" cols="20">Content...</textarea>
+      <b>Rating: </b>
+      <input type="number" name="rating" min="1" max="5">
+      <b>Your Name*: </b> 
+      <input type="text" name="reviewer_name" required>
+      <b>**Required fields</b><br>
+      <input type="submit" value="Submit">
+    </form>
+  `
+  $('.container').html('')
+  $('.container').append(reviewForm)
+}
+
 function JobPost(jobPost){
   this.id = jobPost.id
   this.postType = jobPost.post_type
