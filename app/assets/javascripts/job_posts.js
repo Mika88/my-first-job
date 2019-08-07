@@ -69,6 +69,15 @@ const getJobPost = postId => {
   });
 }
 
+const postJobPost = values => {
+  $('#container').html('')
+  $.post("/job_posts", values).done(function(date) {
+    const newPost = new JobPost(data)
+    let postHtml = newPost.postFormat()
+    $('#container').append(postHtml)
+  })
+}
+
 const newPostForm = () => {
   let formFormat = `
     <h4>New Job Post</h4>
