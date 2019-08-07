@@ -26,6 +26,12 @@ const bindClickEvents = () => {
     let id = $(this).data("id")
     getJobPost(id)
   })
+
+  $(document).on('submit', '#newPost', function(event){
+    event.preventDefault()
+    const values = $(this).serialize()
+    postJobPost(values)
+  })
 }
 
 const posts = posts => {
@@ -46,11 +52,6 @@ const getEmployersPosts = callback => {
   }) 
 }
 
-const handleSubmit = () => {
-  getEmployersPosts(posts)
-  getEmployeesPosts(posts)
-}
-
 const getEmployeesPosts = callback => {
   $.get("/job_posts", function(jobPosts){
     let workers = jobPosts.filter(function(post){
@@ -69,19 +70,19 @@ const getJobPost = postId => {
   });
 }
 
-const postJobPost = values => {
-  $('#container').html('')
-  $.post("/job_posts", values).done(function(date) {
-    const newPost = new JobPost(data)
+function postJobPost(values) {
+  $('.container').html('')
+  $.post("/job_posts", values).done(function(data) {
+    let newPost = new JobPost(data)
     let postHtml = newPost.postFormat()
-    $('#container').append(postHtml)
+    $('.container').append(postHtml)
   })
 }
 
 const newPostForm = () => {
   let formFormat = `
     <h4>New Job Post</h4>
-    <form onsubmit="handleSubmit()" method="post" action="/job_posts" id="newPost">
+    <form id="newPost">
 
       <b>I am...* </b><br>
       <input type="radio" name="post_type" value="looking for a job">Looking for a job<br>
@@ -117,7 +118,7 @@ const newPostForm = () => {
 
 function JobPost(jobPost){
   this.id = jobPost.id
-  this.post_type = jobPost.post_type
+  this.postType = jobPost.post_type
   this.jobType = jobPost.job_type
   this.description = jobPost.description
   this.location = jobPost.location
@@ -147,7 +148,7 @@ JobPost.prototype.postFormat = function() {
 JobPost.prototype.postIndex = function() {
   let postList = `
     <h4><a class="post_link" data-id="${this.id}" href="#">Post ${this.id}:</a></h4>
-    <b>${this.post_type}</b>
+    <b>${this.postType}</b>
     <h5><b>Job Type</b> ${this.jobType}</h5>
     ${this.location ? `<h5><b>Location</b> ${this.location}</h5>` : ''}
     ${this.salary ? `<h5><b>Hourly Salary</b> $${this.salary}</h5>` : ''}
