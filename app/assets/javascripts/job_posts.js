@@ -156,9 +156,9 @@ function Review(review) {
 
 Review.prototype.reviewIndex = function() {
   let reviewList = `
-    <h6>Rating: ${this.rating}</h6> 
+    ${this.rating ? <h6>Rating: ${this.rating}</h6> : ''}
     <h5>Title: ${this.title}</h5>
-    <p>${this.content}</p>
+    ${this.content ? <p>${this.content}</p> : ''}
     <h6>Review by: ${this.reviewerName}</h6>
   `
 }
