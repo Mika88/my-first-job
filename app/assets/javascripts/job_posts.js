@@ -146,6 +146,23 @@ function JobPost(jobPost){
   this.creatorEmail = jobPost.creator_email
 }
 
+function Review(review) {
+  this.id = review.id
+  this.title = review.title
+  this.content = review.content
+  this.rating = review.rating
+  this.reviewerName = review.reviewer_name
+}
+
+Review.prototype.reviewIndex = function() {
+  let reviewList = `
+    <h6>Rating: ${this.rating}</h6> 
+    <h5>Title: ${this.title}</h5>
+    <p>${this.content}</p>
+    <h6>Review by: ${this.reviewerName}</h6>
+  `
+}
+
 JobPost.prototype.postFormat = function() {
   let postInfo = `
     <h5>Job Type</h5>
