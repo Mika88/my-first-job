@@ -23,6 +23,7 @@ const bindClickEvents = () => {
 
   $(document).on('click', '.post_link', function(event) {
     event.preventDefault()
+    $('.container').html('')
     let id = $(this).data("id")
     getJobPost(id)
   })
@@ -65,13 +66,12 @@ const getJobPost = postId => {
   $.get("/job_posts/" + postId, function(post){
     let newPost = new JobPost(post)
     let postHtml = newPost.postFormat() 
-    $('.container').html('')
     $('.container').append(postHtml)
+    newReviewForm(newPost.creatorName)
   });
 }
 
 function postJobPost(values) {
-  $('.container').html('')
   $.post("/job_posts", values).done(function(data) {
     let newPost = new JobPost(data)
     let postHtml = newPost.postFormat()
@@ -116,22 +116,22 @@ const newPostForm = () => {
   $('.container').append(formFormat)
 }
 
-const newReviewForm = () => {
+const newReviewForm = name => {
   let reviewForm = `
-    <h4>Add a Review</h4>
+    <h5>Add a Review About ${name}</h5>
     <form>
       <b>Title*: </b>
       <input type="text" name="title" required></br>
-      <textarea type="text" name="content" rows="10" cols="20">Content...</textarea>
-      <b>Rating: </b>
-      <input type="number" name="rating" min="1" max="5">
+      <b>Content: </b><br>
+      <textarea type="text" name="content" rows="5" cols="20"></textarea><br>
+      <b>Rating (1-5): </b>
+      <input type="number" name="rating" min="1" max="5"><br>
       <b>Your Name*: </b> 
-      <input type="text" name="reviewer_name" required>
+      <input type="text" name="reviewer_name" required><br>
       <b>**Required fields</b><br>
       <input type="submit" value="Submit">
     </form>
   `
-  $('.container').html('')
   $('.container').append(reviewForm)
 }
 
@@ -160,6 +160,8 @@ JobPost.prototype.postFormat = function() {
     <h5>Contact Info</h5>
     <h6><b>Name:</b> ${this.creatorName}</h6>
     <h6><b>Email:</b> ${this.creatorEmail}</h6>
+    <hr>
+    <br></br>
   `
   return postInfo
 }
