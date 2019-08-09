@@ -124,8 +124,6 @@ const newReviewForm = name => {
       <input type="text" name="title" required></br>
       <b>Content: </b><br>
       <textarea type="text" name="content" rows="5" cols="20"></textarea><br>
-      <b>Rating (1-5): </b>
-      <input type="number" name="rating" min="1" max="5"><br>
       <b>Your Name*: </b> 
       <input type="text" name="reviewer_name" required><br>
       <b>**Required fields</b><br>
@@ -150,13 +148,11 @@ function Review(review) {
   this.id = review.id
   this.title = review.title
   this.content = review.content
-  this.rating = review.rating
   this.reviewerName = review.reviewer_name
 }
 
 Review.prototype.reviewIndex = function() {
   let reviewList = `
-    ${this.rating ? <h6>Rating: ${this.rating}</h6> : ''}
     <h5>Title: ${this.title}</h5>
     ${this.content ? <p>${this.content}</p> : ''}
     <h6>Review by: ${this.reviewerName}</h6>
