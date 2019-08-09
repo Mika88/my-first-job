@@ -68,6 +68,7 @@ const getJobPost = postId => {
     let postHtml = newPost.postFormat() 
     $('.container').append(postHtml)
     newReviewForm(newPost.creatorName)
+    getReviews(postId)
   });
 }
 
@@ -76,6 +77,14 @@ function postJobPost(values) {
     let newPost = new JobPost(data)
     let postHtml = newPost.postFormat()
     $('.container').append(postHtml)
+  })
+}
+
+const getReviews = postId => {
+  $.get("/job_posts" + postId + "/reviews", function(review){
+    let newReview = new Review(review)
+    let reviewList = newReview.reviewIndex()
+    $('./container').append(reviewList)
   })
 }
 
@@ -119,7 +128,7 @@ const newPostForm = () => {
 const newReviewForm = name => {
   let reviewForm = `
     <h5>Add a Review About ${name}</h5>
-    <form>
+    <form id="newReview">
       <b>Title*: </b>
       <input type="text" name="title" required></br>
       <b>Content: </b><br>

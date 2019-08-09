@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
-  resources :reviews
-  resources :job_posts
+    resources :job_posts do
+      resources :reviews
+    end
 end
+
