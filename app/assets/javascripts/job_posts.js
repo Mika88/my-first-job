@@ -67,7 +67,7 @@ const getJobPost = postId => {
     let newPost = new JobPost(post)
     let postHtml = newPost.postFormat() 
     $('.container').append(postHtml)
-    newReviewForm(newPost.creatorName)
+    $('.review_form_link').on('click', () => newReviewForm())
     getReviews(postId)
   });
 }
@@ -80,11 +80,14 @@ function postJobPost(values) {
   })
 }
 
-const getReviews = postId => {
-  $.get("/job_posts" + postId + "/reviews", function(review){
-    let newReview = new Review(review)
-    let reviewList = newReview.reviewIndex()
-    $('./container').append(reviewList)
+function getReviews(postId) {
+   $('.container').append("<section class='reviews'>");
+  $.get("/job_posts/" + postId + "/reviews", function(reviews){
+    reviews.forEach(review => {
+      let newReview = new Review(review)
+      let reviewList = newReview.reviewIndex()
+      $('.reviews').append(reviewList)
+     })
   })
 }
 
@@ -92,7 +95,6 @@ const newPostForm = () => {
   let formFormat = `
     <h4>New Job Post</h4>
     <form id="newPost">
-
       <b>I am...* </b><br>
       <input type="radio" name="post_type" value="looking for a job">Looking for a job<br>
       <input type="radio" name="post_type" value="looking to hire">Looking to hire<br></br>
@@ -125,9 +127,8 @@ const newPostForm = () => {
   $('.container').append(formFormat)
 }
 
-const newReviewForm = name => {
+const newReviewForm = () => {
   let reviewForm = `
-    <h5>Add a Review About ${name}</h5>
     <form id="newReview">
       <b>Title*: </b>
       <input type="text" name="title" required></br>
@@ -161,11 +162,15 @@ function Review(review) {
 }
 
 Review.prototype.reviewIndex = function() {
-  let reviewList = `
-    <h5>Title: ${this.title}</h5>
+  let reviewsFormat = `
+  <li>
+    <b>Title: </b><br>
+    <h5>${this.title}</h5>
     ${this.content ? `<p>${this.content}</p>` : ''}
-    <h6>Review by: ${this.reviewerName}</h6>
+    <h6><b>Review by:</b> ${this.reviewerName}</h6>
+  </li>
   `
+  return reviewsFormat
 }
 
 JobPost.prototype.postFormat = function() {
@@ -182,6 +187,7 @@ JobPost.prototype.postFormat = function() {
     <h5>Contact Info</h5>
     <h6><b>Name:</b> ${this.creatorName}</h6>
     <h6><b>Email:</b> ${this.creatorEmail}</h6>
+    <a href="#" class="review_form_link"><h5>Add a Review About ${this.creatorName}</h5></a>
     <hr>
     <br></br>
   `
