@@ -140,7 +140,7 @@ const newReviewForm = () => {
       <input type="submit" value="Submit">
     </form>
   `
-  $('.container').append(reviewForm)
+  $('.job_post').append(reviewForm)
 }
 
 function JobPost(jobPost){
@@ -175,6 +175,7 @@ Review.prototype.reviewIndex = function() {
 
 JobPost.prototype.postFormat = function() {
   let postInfo = `
+  <section class="job_post">
     <h5>Job Type</h5>
     <h6>${this.jobType}</h6>
     <h5>Job Description </h5>
@@ -190,6 +191,7 @@ JobPost.prototype.postFormat = function() {
     <a href="#" class="review_form_link"><h5>Add a Review About ${this.creatorName}</h5></a>
     <hr>
     <br></br>
+  </section>
   `
   return postInfo
 }
