@@ -89,9 +89,13 @@ function postJobPost(values) {
 }
 
 function postReview(values, postId) {
+  const reviewsHeader = $('.reviews').children()[0]
+  const reviewsLength = $('.reviews-list').children().length
+  
   $.post("/job_posts/" + postId + "/reviews", values).done(function(data){
     let newReview = new Review(data)
     let reviewHtml = newReview.reviewIndex()
+    reviewsHeader.textContent = `Reviews (${reviewsLength + 1})`
     $('.reviews-list').append(reviewHtml)
   })
 }
@@ -99,7 +103,7 @@ function postReview(values, postId) {
 function getReviews(postId) {
   $.get("/job_posts/" + postId + "/reviews", function(reviews){
     let reviewsSection = $('.container').append("<section class='reviews'>");
-    $('.reviews').prepend(`<h4><b>Reviews (${reviews.length})</b></h4>`)
+    $('.reviews').prepend(`<h3>Reviews (${reviews.length})</h3>`)
     const ul = document.createElement("ul")
     ul.className = "reviews-list"
     $('.reviews').append(ul)
