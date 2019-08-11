@@ -97,12 +97,16 @@ function postReview(values, postId) {
 }
 
 function getReviews(postId) {
-   $('.container').append("<section class='reviews'>");
+  let reviewsSection = $('.container').append("<section class='reviews'>");
+  $('.reviews').prepend("<h4><b>Reviews</b></h4>")
+  const ul = document.createElement("ul")
+  $('.reviews').append(ul)
+
   $.get("/job_posts/" + postId + "/reviews", function(reviews){
     reviews.forEach(review => {
       let newReview = new Review(review)
       let reviewList = newReview.reviewIndex()
-      $('.reviews').append(reviewList)
+      $(ul).append(reviewList)
      })
   })
 }
