@@ -92,7 +92,7 @@ function postReview(values, postId) {
   $.post("/job_posts/" + postId + "/reviews", values).done(function(data){
     let newReview = new Review(data)
     let reviewHtml = newReview.reviewIndex()
-    $('.reviews').append(reviewHtml)
+    $('.reviews-list').append(reviewHtml)
   })
 }
 
@@ -100,6 +100,7 @@ function getReviews(postId) {
   let reviewsSection = $('.container').append("<section class='reviews'>");
   $('.reviews').prepend("<h4><b>Reviews</b></h4>")
   const ul = document.createElement("ul")
+  ul.className = "reviews-list"
   $('.reviews').append(ul)
 
   $.get("/job_posts/" + postId + "/reviews", function(reviews){
