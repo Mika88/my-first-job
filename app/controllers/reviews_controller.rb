@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+
   def index
     @reviews = JobPost.find(params[:job_post_id]).reviews
     render json: @reviews

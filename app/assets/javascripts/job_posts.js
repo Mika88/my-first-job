@@ -33,6 +33,14 @@ const bindClickEvents = () => {
     const values = $(this).serialize()
     postJobPost(values)
   })
+
+  $(document).on('submit', '#newReview', function(event){
+    event.preventDefault()
+    let id = $(this).data("id")
+    const values = $(this).serialize()
+    postReview(values, id)
+    $('#newReview').remove()
+  })
 }
 
 const posts = posts => {
@@ -67,7 +75,7 @@ const getJobPost = postId => {
     let newPost = new JobPost(post)
     let postHtml = newPost.postFormat() 
     $('.container').append(postHtml)
-    $('.review_form_link').on('click', () => newReviewForm())
+    $('.review_form_link').on('click', () => newReviewForm(postId))
     getReviews(postId)
   });
 }
@@ -77,6 +85,14 @@ function postJobPost(values) {
     let newPost = new JobPost(data)
     let postHtml = newPost.postFormat()
     $('.container').append(postHtml)
+  })
+}
+
+function postReview(values, postId) {
+  $.post("/job_posts/" + postId + "/reviews", values).done(function(data){
+    let newReview = new Review(data)
+    let reviewHtml = newReview.reviewIndex()
+    $('.reviews').append(reviewHtml)
   })
 }
 
@@ -127,9 +143,9 @@ const newPostForm = () => {
   $('.container').append(formFormat)
 }
 
-const newReviewForm = () => {
+const newReviewForm = postId => {
   let reviewForm = `
-    <form id="newReview">
+    <form id="newReview" data-id="${postId}">
       <b>Title*: </b>
       <input type="text" name="title" required></br>
       <b>Content: </b><br>
@@ -137,7 +153,7 @@ const newReviewForm = () => {
       <b>Your Name*: </b> 
       <input type="text" name="reviewer_name" required><br>
       <b>**Required fields</b><br>
-      <input type="submit" value="Submit">
+      <input type="submit" value="Submit" >
     </form>
   `
   $('.job_post').append(reviewForm)
@@ -162,15 +178,15 @@ function Review(review) {
 }
 
 Review.prototype.reviewIndex = function() {
-  let reviewsFormat = `
-  <li>
-    <b>Title: </b><br>
-    <h5>${this.title}</h5>
-    ${this.content ? `<p>${this.content}</p>` : ''}
-    <h6><b>Review by:</b> ${this.reviewerName}</h6>
-  </li>
+  let reviewsList = `
+    <li>
+      <b>Title: </b><br>
+      <h5>${this.title}</h5>
+      ${this.content ? `<p>${this.content}</p>` : ''}
+      <h6><b>Review by:</b> ${this.reviewerName}</h6>
+    </li>
   `
-  return reviewsFormat
+  return reviewsList
 }
 
 JobPost.prototype.postFormat = function() {
