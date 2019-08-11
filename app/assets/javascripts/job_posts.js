@@ -158,6 +158,7 @@ const newReviewForm = postId => {
       <input type="text" name="reviewer_name" required><br>
       <b>**Required fields</b><br>
       <input type="submit" value="Submit" >
+      <hr>
     </form>
   `
   $('.job_post').append(reviewForm)
@@ -210,7 +211,6 @@ JobPost.prototype.postFormat = function() {
     <h6><b>Email:</b> ${this.creatorEmail}</h6>
     <a href="#" class="review_form_link"><h5>Add a Review About ${this.creatorName}</h5></a>
     <hr>
-    <br></br>
   </section>
   `
   return postInfo
