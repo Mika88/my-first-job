@@ -190,8 +190,7 @@ function Review(review) {
 Review.prototype.reviewIndex = function() {
   let reviewsList = `
     <li>
-      <b>Title: </b><br>
-      <h5>${this.title}</h5>
+      <h5><b>Title: </b>${this.title}</h5>
       ${this.content ? `<p>${this.content}</p>` : ''}
       <h6><b>Review by:</b> ${this.reviewerName}</h6>
     </li>
@@ -202,18 +201,18 @@ Review.prototype.reviewIndex = function() {
 JobPost.prototype.postFormat = function() {
   let postInfo = `
   <section class="job_post">
-    <h5>Job Type</h5>
-    <h6>${this.jobType}</h6>
-    <h5>Job Description </h5>
+    <h4>Job Type</h4>
+    <h5>${this.jobType}</h5>
+    <h4>Job Description </h4>
     <p>${this.description}</p>
-    <h5>Details</h5>
+    <h4>Details</h4>
     <ul>
       ${this.location ? `<li>Location: ${this.location}</li>` : '' }
       ${this.salary ? `<li>Hourly Salary: $${this.salary}</li>` : '' }
     </ul>
-    <h5>Contact Info</h5>
-    <h6><b>Name:</b> ${this.creatorName}</h6>
-    <h6><b>Email:</b> ${this.creatorEmail}</h6>
+    <h4>Contact Info</h4>
+    <h5><b>Name:</b> ${this.creatorName}</h5>
+    <h5><b>Email:</b> ${this.creatorEmail}</h5>
     <a href="#" class="review_form_link"><h5>Add a Review About ${this.creatorName}</h5></a>
     <hr>
   </section>
