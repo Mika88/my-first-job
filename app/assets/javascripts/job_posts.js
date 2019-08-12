@@ -31,7 +31,8 @@ const bindClickEvents = () => {
   $(document).on('submit', '#newPost', function(event){
     event.preventDefault()
     const values = $(this).serialize()
-    postJobPost(values)
+    const id = $(this).data("id")
+    postJobPost(values, id)
     $('#newPost').remove()
   })
 
@@ -41,6 +42,12 @@ const bindClickEvents = () => {
     const values = $(this).serialize()
     postReview(values, id)
     $('#newReview').remove()
+  })
+
+  $(document).on('click', '.review_form_link', function(event){
+    event.preventDefault()
+    let id = $(this).data("id")
+    newReviewForm(id)
   })
 }
 
@@ -72,20 +79,20 @@ const getEmployeesPosts = callback => {
 }
 
 const getJobPost = postId => {
+  $('.container').append("<section class='job-post'>");
   $.get("/job_posts/" + postId, function(post){
     let newPost = new JobPost(post)
     let postHtml = newPost.postFormat() 
-    $('.container').append(postHtml)
-    $('.review_form_link').on('click', () => newReviewForm(postId))
+    $('.job-post').append(postHtml)
     getReviews(postId)
   });
 }
 
 function postJobPost(values) {
+  $('.container').append("<section class='job-post'>");
   $.post("/job_posts", values).done(function(data) {
     let newPost = new JobPost(data)
     let postHtml = newPost.postFormat()
-    let jobPostSection = $('.container').append("<section class='job-post'>");
     $('.job-post').append(postHtml)
   })
 }
@@ -120,8 +127,8 @@ function getReviews(postId) {
 
 const newPostForm = () => {
   let formFormat = `
-    <h4>New Job Post</h4>
     <form id="newPost">
+      <h4>New Job Post</h4>
       <b>I am...* </b><br>
       <input type="radio" name="post_type" value="looking for a job">Looking for a job<br>
       <input type="radio" name="post_type" value="looking to hire">Looking to hire<br></br>
@@ -214,7 +221,7 @@ JobPost.prototype.postFormat = function() {
     <h4>Contact Info</h4>
     <h6><b>Name:</b> ${this.creatorName}</h6>
     <h6><b>Email:</b> ${this.creatorEmail}</h6>
-    <a href="#" class="review_form_link"><h5>Add a Review About ${this.creatorName}</h5></a>
+    <a href="#" class="review_form_link" data-id="${this.id}"><h5>Add a Review About ${this.creatorName}</h5></a>
     <hr>
   </section>
   `
