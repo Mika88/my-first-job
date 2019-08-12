@@ -31,8 +31,7 @@ const bindClickEvents = () => {
   $(document).on('submit', '#newPost', function(event){
     event.preventDefault()
     const values = $(this).serialize()
-    const id = $(this).data("id")
-    postJobPost(values, id)
+    postJobPost(values)
     $('#newPost').remove()
   })
 
@@ -80,6 +79,7 @@ const getEmployeesPosts = callback => {
 
 const getJobPost = postId => {
   $('.container').append("<section class='job-post'>");
+  $('.container').append("<section class='reviews'>");
   $.get("/job_posts/" + postId, function(post){
     let newPost = new JobPost(post)
     let postHtml = newPost.postFormat() 
@@ -90,10 +90,12 @@ const getJobPost = postId => {
 
 function postJobPost(values) {
   $('.container').append("<section class='job-post'>");
+  $('.container').append("<section class='reviews'>");
   $.post("/job_posts", values).done(function(data) {
     let newPost = new JobPost(data)
     let postHtml = newPost.postFormat()
     $('.job-post').append(postHtml)
+    getReviews(newPost.id)
   })
 }
 
@@ -111,7 +113,6 @@ function postReview(values, postId) {
 
 function getReviews(postId) {
   $.get("/job_posts/" + postId + "/reviews", function(reviews){
-    let reviewsSection = $('.container').append("<section class='reviews'>");
     $('.reviews').prepend(`<h3>Reviews (${reviews.length})</h3>`)
     const ul = document.createElement("ul")
     ul.className = "reviews-list"
