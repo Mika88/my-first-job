@@ -44,9 +44,14 @@ const bindClickEvents = () => {
   })
 
   $(document).on('click', '.review_form_link', function(event){
+    if ($(this).hasClass("clicked")) {
+      $('#newReview').remove()
+    } else {
+      let id = $(this).data("id")
+      newReviewForm(id)
+    }
     event.preventDefault()
-    let id = $(this).data("id")
-    newReviewForm(id)
+    $(this).toggleClass("clicked");
   })
 }
 
