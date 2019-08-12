@@ -149,7 +149,7 @@ const newPostForm = () => {
       <b>Job Location (neighborhood, city): <b>
       <input type="text" name="location"><br>
 
-      <b>Hourly salary: <b>
+      <b>Hourly Rate: <b>
       $<input type="number" name="salary"><br>
 
       <b>Contact Info*:</b><br>
@@ -219,7 +219,7 @@ JobPost.prototype.postFormat = function() {
     <h4>Details</h4>
     <ul>
       ${this.location ? `<li>Location: ${this.location}</li>` : '' }
-      ${this.salary ? `<li>Hourly Wage: $${this.salary}</li>` : '' }
+      ${this.salary ? `<li>Hourly Rate: $${this.salary}</li>` : '' }
     </ul>
     <h4>Contact Info</h4>
     <h6><b>Name:</b> ${this.creatorName}</h6>
@@ -238,7 +238,7 @@ JobPost.prototype.postIndex = function() {
       <b>${this.postType}</b>
       <h5><b>Job Type</b> ${this.jobType}</h5>
       ${this.location ? `<h5><b>Location</b> ${this.location}</h5>` : ''}
-      ${this.salary ? `<h5><b>Hourly Wage</b> $${this.salary}</h5>` : ''}
+      ${this.salary ? `<h5><b>Hourly Rate</b> $${this.salary}</h5>` : ''}
     </li>
   `
   return postList
