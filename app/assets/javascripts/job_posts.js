@@ -52,10 +52,11 @@ const bindClickEvents = () => {
 
 const posts = posts => {
   $('.container').html('')
+  $('.container').append(`<ul class="posts-list"></ul>`)
   posts.forEach(post => {
     let newPost = new JobPost(post)
     let postList = newPost.postIndex()
-    $('.container').append(postList)
+    $('.posts-list').append(postList)
   })
 }
 
@@ -231,11 +232,13 @@ JobPost.prototype.postFormat = function() {
 
 JobPost.prototype.postIndex = function() {
   let postList = `
-    <h4><a class="post_link" data-id="${this.id}" href="#">Post ${this.id}:</a></h4>
-    <b>${this.postType}</b>
-    <h5><b>Job Type</b> ${this.jobType}</h5>
-    ${this.location ? `<h5><b>Location</b> ${this.location}</h5>` : ''}
-    ${this.salary ? `<h5><b>Hourly Wage</b> $${this.salary}</h5>` : ''}
+    <li>
+      <h4><a class="post_link" data-id="${this.id}" href="#">Post ${this.id}:</a></h4>
+      <b>${this.postType}</b>
+      <h5><b>Job Type</b> ${this.jobType}</h5>
+      ${this.location ? `<h5><b>Location</b> ${this.location}</h5>` : ''}
+      ${this.salary ? `<h5><b>Hourly Wage</b> $${this.salary}</h5>` : ''}
+    </li>
   `
   return postList
 }
