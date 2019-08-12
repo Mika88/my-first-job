@@ -32,6 +32,7 @@ const bindClickEvents = () => {
     event.preventDefault()
     const values = $(this).serialize()
     postJobPost(values)
+    $('#newPost').remove()
   })
 
   $(document).on('submit', '#newReview', function(event){
@@ -84,7 +85,8 @@ function postJobPost(values) {
   $.post("/job_posts", values).done(function(data) {
     let newPost = new JobPost(data)
     let postHtml = newPost.postFormat()
-    $('.container').append(postHtml)
+    let jobPostSection = $('.container').append("<section class='job-post'>");
+    $('.job-post').append(postHtml)
   })
 }
 
@@ -166,7 +168,7 @@ const newReviewForm = postId => {
       <hr>
     </form>
   `
-  $('.job_post').append(reviewForm)
+  $('.job-post').append(reviewForm)
 }
 
 function JobPost(jobPost){
@@ -200,7 +202,6 @@ Review.prototype.reviewIndex = function() {
 
 JobPost.prototype.postFormat = function() {
   let postInfo = `
-  <section class="job_post">
     <h4>Job Type</h4>
     <h5>${this.jobType}</h5>
     <h4>Job Description </h4>
