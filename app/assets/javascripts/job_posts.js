@@ -205,6 +205,7 @@ Review.prototype.reviewIndex = function() {
       ${this.content ? `<p>${this.content}</p>` : ''}
       <h6><b>Review by:</b> ${this.reviewerName}</h6>
     </li>
+    <br>
   `
   return reviewsList
 }
