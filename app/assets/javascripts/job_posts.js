@@ -208,11 +208,11 @@ JobPost.prototype.postFormat = function() {
     <h4>Details</h4>
     <ul>
       ${this.location ? `<li>Location: ${this.location}</li>` : '' }
-      ${this.salary ? `<li>Hourly Salary: $${this.salary}</li>` : '' }
+      ${this.salary ? `<li>Hourly Wage: $${this.salary}</li>` : '' }
     </ul>
     <h4>Contact Info</h4>
-    <h5><b>Name:</b> ${this.creatorName}</h5>
-    <h5><b>Email:</b> ${this.creatorEmail}</h5>
+    <h6><b>Name:</b> ${this.creatorName}</h6>
+    <h6><b>Email:</b> ${this.creatorEmail}</h6>
     <a href="#" class="review_form_link"><h5>Add a Review About ${this.creatorName}</h5></a>
     <hr>
   </section>
@@ -226,7 +226,7 @@ JobPost.prototype.postIndex = function() {
     <b>${this.postType}</b>
     <h5><b>Job Type</b> ${this.jobType}</h5>
     ${this.location ? `<h5><b>Location</b> ${this.location}</h5>` : ''}
-    ${this.salary ? `<h5><b>Hourly Salary</b> $${this.salary}</h5>` : ''}
+    ${this.salary ? `<h5><b>Hourly Wage</b> $${this.salary}</h5>` : ''}
   `
   return postList
 }
