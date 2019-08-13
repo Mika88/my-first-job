@@ -15,3 +15,18 @@
  */
 
  @import "bootstrap";
+
+ .home_page {
+   text-align: center;
+   font-family: "Trebuchet MS", Helvetica, sans-serif;
+ }
+
+ body {
+  background-image: url("my-first-job-bg.jpg");
+ }
+
+ .container {
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+   background-color: bisque;
+   width: 700px;
+ }
