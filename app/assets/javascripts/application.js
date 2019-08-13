@@ -17,3 +17,22 @@
 //=job_posts
 //=reviews
 
+$(() => {
+  homePage()
+  $('#home_link').on('click', event => {
+    event.preventDefault()
+    $('.container').html('')
+    homePage()
+  })
+})
+
+const homePage = () => {
+  let intro = `
+  <div class="home_page">
+    <h2>My-First-Job</h2>
+    <h5>Creating a strong community by connecting local youth in search for their first job, </h5>
+    <h5>and home owners who need some help</h5>
+  </div>
+  `
+  $('.container').append(intro)
+}
