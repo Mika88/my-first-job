@@ -88,7 +88,7 @@ const newReviewForm = postId => {
       <b>Title*: </b>
       <input type="text" name="title" required></br>
       <b>Content: </b><br>
-      <textarea type="text" name="content" rows="5" cols="20"></textarea><br>
+      <textarea type="text" name="content" rows="4" cols="30"></textarea><br>
       <b>Your Name*: </b> 
       <input type="text" name="reviewer_name" required><br>
       <b>**Required fields</b><br>

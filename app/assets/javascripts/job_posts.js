@@ -152,7 +152,7 @@ const newPostForm = () => {
       <input type="checkbox" name="job_type[]" value="other">other<br></br>
 
       <b>About Job/Me*</b><br>
-      <textarea type="text" name="description" form="newPost" rows="10" cols="30" required></textarea><br></br>
+      <textarea type="text" name="description" form="newPost" rows="5" cols="50" required></textarea><br></br>
 
       <b>Job Location (neighborhood, city): <b>
       <input type="text" name="location"><br>
@@ -163,7 +163,7 @@ const newPostForm = () => {
       <b>Contact Info*:</b><br>
       Name: <input type="text" name="creator_name" required><br>
       Email: <input type="email" name="creator_email" required></br>
-      <b>**required fields</b>
+      <b>**required fields</b><br>
       <input type="submit" value="Submit">
     </form>
   `
