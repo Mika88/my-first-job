@@ -12,14 +12,27 @@ const bindReviewsClickEvents = () => {
   })
 
   $(document).on('click', '.review_form_link', function(event){
+    event.preventDefault()
+    let id = $(this).data("id")
     if ($(this).hasClass("clicked")) {
       $('#newReview').remove()
     } else {
-      let id = $(this).data("id")
       newReviewForm(id)
     }
-    event.preventDefault()
     $(this).toggleClass("clicked");
+  })
+
+  $(document).on('click', '.show-more', function(event){
+    event.preventDefault()
+    const id = $(this).data("id")
+    if($(this).hasClass("show-content")) {
+      document.getElementsByClassName(`review-${id}`)[0].style.height = '1.5em'
+      $(this).text("show more") 
+    }else{
+      document.getElementsByClassName(`review-${id}`)[0].style.height = 'auto'
+      $(this).text("show less") 
+    }
+    $(this).toggleClass("show-content");
   })
 }
 
@@ -62,7 +75,7 @@ Review.prototype.reviewIndex = function() {
   let reviewsList = `
     <li>
       <h5><b>Title: </b>${this.title}</h5>
-      ${this.content ? `<div class="content"><p>${this.content}</p></div><a href="#" class="show-more">show more</a><br>` : ''}
+      ${this.content ? `<div class="content review-${this.id}"><p>${this.content}</p></div><a href="#" data-id="${this.id}" class="show-more">show more</a><br>` : ''}
       <h6><b>Review by:</b> ${this.reviewerName}</h6>
     </li>
     <br>
