@@ -8,6 +8,7 @@ const bindReviewsClickEvents = () => {
     let id = $(this).data("id")
     const values = $(this).serialize()
     postReview(values, id)
+    $('.review_form_link').removeClass("clicked");
     $('#newReview').remove()
   })
 
@@ -40,7 +41,6 @@ function postReview(values, postId) {
 
   const reviewsHeader = $('.reviews').children()[0]
   const reviewsLength = $('.reviews-list').children().length
-
   $.post("/job_posts/" + postId + "/reviews", values).done(function(data){
     let newReview = new Review(data)
     let reviewHtml = newReview.reviewIndex()
@@ -78,7 +78,6 @@ Review.prototype.reviewIndex = function() {
       ${this.content ? `<div class="content review-${this.id}"><p>${this.content}</p></div><a href="#" data-id="${this.id}" class="show-more">show more</a><br>` : ''}
       <h6><b>Review by:</b> ${this.reviewerName}</h6>
     </li>
-    <br>
   `
   return reviewsList
 }
