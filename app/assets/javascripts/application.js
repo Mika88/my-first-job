@@ -21,6 +21,7 @@ $(() => {
   homePage()
   $('#home_link').on('click', event => {
     event.preventDefault()
+    history.pushState(null, null, "/")
     $('.container').html('')
     homePage()
   })

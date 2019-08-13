@@ -5,20 +5,20 @@ $(() => {
 const bindPostsClickEvents = () => {
   $('#workers_link').on('click', event => {
     event.preventDefault()
-    history.pushState(null, null, "employee_posts")
+    history.pushState(null, null, "job-posts")
     getEmployeesPosts(posts)
   })
   
   $('#jobs_link').on('click', event => {
     event.preventDefault()
-    history.pushState(null, null, "employer_posts")
+    history.pushState(null, null, "job-posts")
     getEmployersPosts(posts)
   })
   
   $('#new_post_link').on('click', event => {
     event.preventDefault()
     $('.container').html('')
-    history.pushState(null, null, "posts/new")
+    history.pushState(null, null, "new-post")
     newPostForm()
   })
 
