@@ -24,8 +24,9 @@ const bindPostsClickEvents = () => {
 
   $(document).on('click', '.post_link', function(event) {
     event.preventDefault()
-    $('.container').html('')
+     $('.container').html('')
     let id = $(this).data("id")
+    history.pushState({id}, null, `/post=${id}`)
     getJobPost(id)
   })
 

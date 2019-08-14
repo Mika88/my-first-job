@@ -38,20 +38,21 @@ const homePage = () => {
   $('.container').append(intro)
 }
 
-const controlHistory = 
-  window.addEventListener('popstate', e => {
-    console.log(e.state)
-    if(e.state !== null){
-      if(e.state === 'jobPosts') {
-          getEmployersPosts(posts)
-      }else if(e.state === 'jobSeekers') {
-        getEmployeesPosts(posts) 
-      }else if(e.state === 'newPost') {
-        newPostForm()
-      }else if(e.state === 'home') {
-        homePage()
-      }else{
-        homePage()
-      } 
-    }
+window.addEventListener('popstate', e => {
+  if(e.state !== null){
+    if(e.state === 'jobPosts') {
+        getEmployersPosts(posts)
+    }else if(e.state === 'jobSeekers') {
+      getEmployeesPosts(posts) 
+    }else if(e.state === 'newPost') {
+      newPostForm()
+    }else if(e.state.id){
+      $('.container').html('')
+      getJobPost(e.state.id)
+    }else if(e.state === 'home') {
+      homePage()
+    }else{
+      homePage()
+    } 
+  }
 });
