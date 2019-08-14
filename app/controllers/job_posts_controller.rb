@@ -20,7 +20,12 @@ class JobPostsController < ApplicationController
             render json: { errors: { message: "Post failed to save"}}
         end
     end
-
+    
+    def destroy
+        @job_post = JobPost.find(params[:id]).destroy
+        render jason: @job_post
+    end
+    
     private
 
     def job_post_params
