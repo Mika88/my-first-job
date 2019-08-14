@@ -39,20 +39,25 @@ const homePage = () => {
 }
 
 window.addEventListener('popstate', e => {
-  if(e.state !== null){
-    if(e.state === 'jobPosts') {
+  switch(e.state) {
+    case 'jobPosts':
         getEmployersPosts(posts)
-    }else if(e.state === 'jobSeekers') {
-      getEmployeesPosts(posts) 
-    }else if(e.state === 'newPost') {
-      newPostForm()
-    }else if(e.state.id){
+        break;
+    case 'jobSeekers':
+        getEmployeesPosts(posts) 
+        break;
+    case 'newPost':
+        newPostForm()
+        break;
+    case 'home':
+        homePage()
+        break
+    case null:
+      homePage()
+    }
+    
+    if(e.state.id){
       $('.container').html('')
       getJobPost(e.state.id)
-    }else if(e.state === 'home') {
-      homePage()
-    }else{
-      homePage()
-    } 
-  }
+    }
 });
