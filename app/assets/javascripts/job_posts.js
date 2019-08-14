@@ -131,6 +131,8 @@ JobPost.prototype.postIndex = function() {
       <h5><b>Job Type</b> ${this.jobType}</h5>
       ${this.location ? `<h5><b>Location</b> ${this.location}</h5>` : ''}
       ${this.salary ? `<h5><b>Hourly Rate</b> $${this.salary}</h5>` : ''}
+      <button class="delete-post" data-id="${this.id}">Delete Post</button>
+      <hr>
     </li>
   `
   return postList
