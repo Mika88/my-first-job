@@ -3,22 +3,22 @@ $(() => {
 });
 
 const bindPostsClickEvents = () => {
-  $('#workers_link').on('click', event => {
+ $('#workers_link').on('click', event => {
+    url = 'jobSeekers'
     event.preventDefault()
-    history.pushState(null, null, "job-posts")
+    history.pushState('jobSeekers', null, "job-seekers")
     getEmployeesPosts(posts)
   })
   
   $('#jobs_link').on('click', event => {
     event.preventDefault()
-    history.pushState(null, null, "job-posts")
+    history.pushState('jobPosts', null, "job-posts")
     getEmployersPosts(posts)
   })
   
   $('#new_post_link').on('click', event => {
     event.preventDefault()
-    $('.container').html('')
-    history.pushState(null, null, "new-post")
+    history.pushState('newPost', null, "new-post")
     newPostForm()
   })
 
@@ -167,6 +167,7 @@ const newPostForm = () => {
       <input type="submit" value="Submit">
     </form>
   `
+  $('.container').html('')
   $('.container').append(formFormat)
 }
 

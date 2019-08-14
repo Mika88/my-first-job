@@ -21,8 +21,7 @@ $(() => {
   homePage()
   $('#home_link').on('click', event => {
     event.preventDefault()
-    history.pushState(null, null, "/")
-    $('.container').html('')
+    history.pushState('home', null, "/")
     homePage()
   })
 })
@@ -35,5 +34,24 @@ const homePage = () => {
     <h5>in search for their first job, and home owners who need some help</h5>
   </div>
   `
+  $('.container').html('')
   $('.container').append(intro)
 }
+
+const controlHistory = 
+  window.addEventListener('popstate', e => {
+    console.log(e.state)
+    if(e.state !== null){
+      if(e.state === 'jobPosts') {
+          getEmployersPosts(posts)
+      }else if(e.state === 'jobSeekers') {
+        getEmployeesPosts(posts) 
+      }else if(e.state === 'newPost') {
+        newPostForm()
+      }else if(e.state === 'home') {
+        homePage()
+      }else{
+        homePage()
+      } 
+    }
+});
