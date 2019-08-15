@@ -34,7 +34,6 @@ const bindPostsClickEvents = () => {
     event.preventDefault()
     const values = $(this).serialize()
     postJobPost(values)
-    $('#newPost').remove()
   })
 
   $(document).on('click', '.delete-post', function(event){
@@ -88,17 +87,23 @@ function postJobPost(values) {
   $.post("/job_posts", values).done(function(data) {
     let newPost = new JobPost(data)
     let postHtml = newPost.postFormat()
+    let id = newPost.id
+    history.pushState({id}, null, `/post=${id}`)
     $('.job-post').append(postHtml)
-    getReviews(newPost.id)
+    getReviews(id)
   })
 }
 
 function deleteJobPost(postId) {
   fetch('/job_posts/' + postId, { method: 'DELETE'})
-  .then(homePage());
+  .then(() => {
+    history.pushState('home', null, `home`)
+    homePage()
+  });
 }
 
 const sectionTags= () => {
+  $('.container').html('')
   $('.container').append("<section class='job-post'>");
   $('.container').append("<section class='reviews'>");
 }
@@ -150,7 +155,7 @@ JobPost.prototype.postIndex = function() {
   return postList
 }
 
-const newPostForm = () => {
+const newPostForm = postId => {
   let formFormat = `
     <form id="newPost">
       <h4>New Job Post</h4>
