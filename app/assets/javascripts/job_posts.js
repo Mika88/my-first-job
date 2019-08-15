@@ -97,7 +97,7 @@ function postJobPost(values) {
 function deleteJobPost(postId) {
   fetch('/job_posts/' + postId, { method: 'DELETE'})
   .then(() => {
-    history.pushState('home', null, `home`)
+    history.pushState('home', null, '/')
     homePage()
   });
 }
