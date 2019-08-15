@@ -36,6 +36,13 @@ const bindPostsClickEvents = () => {
     postJobPost(values)
     $('#newPost').remove()
   })
+
+  $(document).on('click', '.delete-post', function(event){
+    const id = $(this).data("id")
+    if(window.confirm('Are you sure you wish to delete this post?')){
+      deleteJobPost(id)
+    }
+  })
 }
 
 const posts = posts => {
@@ -86,6 +93,11 @@ function postJobPost(values) {
   })
 }
 
+function deleteJobPost(postId) {
+  fetch('/job_posts/' + postId, { method: 'DELETE'})
+  .then(response => response.json());
+}
+
 const sectionTags= () => {
   $('.container').append("<section class='job-post'>");
   $('.container').append("<section class='reviews'>");
@@ -117,6 +129,7 @@ JobPost.prototype.postFormat = function() {
     <h6><b>Name:</b> ${this.creatorName}</h6>
     <h6><b>Email:</b> ${this.creatorEmail}</h6>
     <a href="#" class="review_form_link" data-id="${this.id}"><h5>Add a Review About ${this.creatorName}</h5></a>
+    <button class="delete-post" data-id="${this.id}">Delete Post</button>
     <hr>
   </section>
   `
@@ -131,7 +144,6 @@ JobPost.prototype.postIndex = function() {
       <h5><b>Job Type</b> ${this.jobType}</h5>
       ${this.location ? `<h5><b>Location</b> ${this.location}</h5>` : ''}
       ${this.salary ? `<h5><b>Hourly Rate</b> $${this.salary}</h5>` : ''}
-      <button class="delete-post" data-id="${this.id}">Delete Post</button>
       <hr>
     </li>
   `

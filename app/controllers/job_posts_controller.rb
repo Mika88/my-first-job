@@ -23,9 +23,9 @@ class JobPostsController < ApplicationController
     
     def destroy
         @job_post = JobPost.find(params[:id]).destroy
-        render jason: @job_post
+        render json: @job_post
     end
-    
+
     private
 
     def job_post_params
