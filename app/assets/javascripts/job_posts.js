@@ -95,7 +95,7 @@ function postJobPost(values) {
 
 function deleteJobPost(postId) {
   fetch('/job_posts/' + postId, { method: 'DELETE'})
-  .then(response => response.json());
+  .then(homePage());
 }
 
 const sectionTags= () => {
