@@ -37,6 +37,7 @@ const bindReviewsClickEvents = () => {
   })
   
   $(document).on('click', '.delete-review', function(event){
+    event.preventDefault()
     const reviewId = $(this).data("id")
     const urlString = window.location.href
     const postId = Number(urlString.split("=")[1])
@@ -76,6 +77,8 @@ const getReviews = postId => {
 const deleteReview = (postId, reviewId) => {
   let url = `/job_posts/${postId}/reviews/${reviewId}`
   fetch(url, { method: 'DELETE'})
+  .then(res => res.json())
+  .then(res => $(`#review-${res.id}`).remove())
 }
 
 function Review(review) {
@@ -87,7 +90,7 @@ function Review(review) {
 
 Review.prototype.reviewIndex = function() {
   let reviewsList = `
-    <li>
+    <li id="review-${this.id}">
       <h5>
         <b>Title: </b>${this.title}
         <a href="#" class="delete-review" data-id="${this.id}">X</a>

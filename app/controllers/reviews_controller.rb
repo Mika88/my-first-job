@@ -19,6 +19,11 @@ class ReviewsController < ApplicationController
           render json: { errors: { message: "Review failed to save"}}
       end
   end
+  
+  def destroy
+    @review = Review.find(params[:id]).destroy
+    render json: @review
+  end
 
   private
 
