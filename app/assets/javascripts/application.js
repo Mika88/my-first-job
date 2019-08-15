@@ -57,7 +57,6 @@ window.addEventListener('popstate', e => {
     }
     
     if(e.state.id){
-      $('.container').html('')
       getJobPost(e.state.id)
     }
 });

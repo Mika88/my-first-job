@@ -35,10 +35,19 @@ const bindReviewsClickEvents = () => {
     }
     $(this).toggleClass("show-content");
   })
+  
+  $(document).on('click', '.delete-review', function(event){
+    const reviewId = $(this).data("id")
+    const urlString = window.location.href
+    const postId = Number(urlString.split("=")[1])
+    if(window.confirm('Are you sure you wish to delete this review?')){
+      deleteReview(postId, reviewId)
+    }
+  })
+
 }
 
 function postReview(values, postId) {
-
   const reviewsHeader = $('.reviews').children()[0]
   const reviewsLength = $('.reviews-list').children().length
   $.post("/job_posts/" + postId + "/reviews", values).done(function(data){
@@ -49,7 +58,7 @@ function postReview(values, postId) {
   })
 }
 
-function getReviews(postId) {
+const getReviews = postId => {
   $.get("/job_posts/" + postId + "/reviews", function(reviews){
     $('.reviews').prepend(`<h3>Reviews (${reviews.length})</h3>`)
     const ul = document.createElement("ul")
@@ -62,6 +71,11 @@ function getReviews(postId) {
       $(ul).append(reviewList)
      })
   })
+}
+
+const deleteReview = (postId, reviewId) => {
+  let url = `/job_posts/${postId}/reviews/${reviewId}`
+  fetch(url, { method: 'DELETE'})
 }
 
 function Review(review) {
