@@ -82,7 +82,7 @@ const getJobPost = postId => {
   });
 }
 
-function postJobPost(values) {
+const postJobPost = values => {
   sectionTags()
   $.post("/job_posts", values).done(function(data) {
     let newPost = new JobPost(data)
@@ -94,7 +94,7 @@ function postJobPost(values) {
   })
 }
 
-function deleteJobPost(postId) {
+const deleteJobPost = postId => {
   fetch('/job_posts/' + postId, { method: 'DELETE'})
   .then(() => {
     history.pushState('home', null, '/')

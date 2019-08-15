@@ -48,7 +48,7 @@ const bindReviewsClickEvents = () => {
 
 }
 
-function postReview(values, postId) {
+const postReview = (values, postId) => {
   const reviewsHeader = $('.reviews').children()[0]
   const reviewsLength = $('.reviews-list').children().length
   $.post("/job_posts/" + postId + "/reviews", values).done(function(data){
@@ -75,10 +75,21 @@ const getReviews = postId => {
 }
 
 const deleteReview = (postId, reviewId) => {
+  const reviewsHeader = $('.reviews').children()[0]
+  const reviewsLength = $('.reviews-list').children().length
   let url = `/job_posts/${postId}/reviews/${reviewId}`
   fetch(url, { method: 'DELETE'})
   .then(res => res.json())
-  .then(res => $(`#review-${res.id}`).remove())
+  .then(res => {
+    $(`#review-${res.id}`).remove()
+    reviewsHeader.textContent = `Reviews (${reviewsLength - 1})`
+  })
+}
+
+const reviewCount = (action) => {
+  const reviewsHeader = $('.reviews').children()[0]
+  const reviewsLength = $('.reviews-list').children().length
+  reviewsHeader.textContent = `Reviews (${action})`
 }
 
 function Review(review) {
