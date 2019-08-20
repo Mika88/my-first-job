@@ -92,14 +92,22 @@ const postJobPost = values => {
     $('.job-post').append(postHtml)
     getReviews(id)
   })
+  .fail(function(response) {
+    alert('Error: all required fields must be filled');
+    renderHome()
+});
 }
 
 const deleteJobPost = postId => {
   fetch('/job_posts/' + postId, { method: 'DELETE'})
   .then(() => {
-    history.pushState('home', null, '/')
-    homePage()
+    renderHome()
   });
+}
+
+const renderHome = () => {
+  history.pushState('home', null, '/')
+  homePage()
 }
 
 const sectionTags= () => {
@@ -160,7 +168,7 @@ const newPostForm = postId => {
     <form id="newPost">
       <h4>New Job Post</h4>
       <b>I am...* </b><br>
-      <input type="radio" name="post_type" value="looking for a job">Looking for a job<br>
+      <input type="radio" name="post_type" value="looking for a job" required>Looking for a job<br>
       <input type="radio" name="post_type" value="looking to hire">Looking to hire<br></br>
 
       <b>Select a job type*:</b><br>

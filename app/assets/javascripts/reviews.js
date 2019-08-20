@@ -57,6 +57,9 @@ const postReview = (values, postId) => {
     reviewsHeader.textContent = `Reviews (${reviewsLength + 1})`
     $('.reviews-list').append(reviewHtml)
   })
+  .fail(function(response) {
+    alert('Error: all required fields must be filled');
+   });
 }
 
 const getReviews = postId => {
