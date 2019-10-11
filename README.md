@@ -1,7 +1,7 @@
 # README
 # MY FIRST JOB
 
-This is a single page application writen in JavaScript with a Ruby on Rails backend. My-First-Job is meant for local youth to find jobs by posting job posts offering different services such as babysitting, and dog walking; and for homeowners to find help through posting wanted posts offering similar jobs to the local youth. 
+This is a single page application written in JavaScript with a Ruby on Rails back-end. My-First-Job is meant for local youth to find jobs by posting job posts offering different services such as babysitting, and dog walking; and for homeowners to find help through posting wanted posts offering similar jobs to the local youth. 
 
 ## Usage
 
